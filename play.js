@@ -1,7 +1,24 @@
 const { connect } = require("./client");
+const handleUserInput = function (key) {
+  // your code here
+  // \u0003 maps to ctrl+c input
+if (key === '\u0003') {
+  console.log("Connecting closing");
 
-// establishes a connection with the game server
+  process.exit();
+}
+};
+
+const setupInput = function () {
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding("utf8");
+  stdin.resume();
+  stdin.on("data", handleUserInput);
+  return stdin;
+};
 
 
 console.log("Connecting ...");
 connect();
+setupInput();
